@@ -9,7 +9,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": ""
+    "start": "node app.js"
   },
   "author": "Robert van der Dussen, Danny de Zeeuw",
   "license": "ISC"
