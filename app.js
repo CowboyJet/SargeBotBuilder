@@ -1,5 +1,6 @@
 var restify = require('restify');
 var builder = require('botbuilder');
+var request = require('request');
 
 //=========================================================
 // Bot Setup
@@ -22,12 +23,45 @@ server.post('/api/messages', connector.listen());
 //=========================================================
 // Bots Dialogs
 //=========================================================
+var intents = new builder.IntentDialog();
 
-bot.dialog('/', [
+bot.dialog('/', intents);
+
+intents.matches(/^.*change.*name/i, [
+    function (session) {
+        session.beginDialog('/profile');
+    },
+    function (session, results) {
+        session.send('Ok... Changed your name to %s', session.userData.name);
+    }
+]);
+
+intents.matches(/((who)|(wie)).*(sergeant)|(sarge)|(seargeant)/i, [
+    function (session) {
+        request('https://sotdapi.herokuapp.com/sergeant/today', function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                session.send(body); // Show the HTML for the Modulus homepage.
+            }
+        });
+    }
+]);
+
+intents.matches(/((sergeant)|(sarge)|(seargeant)).*((list)|(lijst)|(-l))/i, [
+    function (session) {
+        request('https://sotdapi.herokuapp.com/sergeant/list', function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                session.send(body); // Show the HTML for the Modulus homepage.
+            }
+        });
+    }
+]);
+
+bot.dialog('/profile', [
     function (session) {
         builder.Prompts.text(session, 'Hi! What is your name?');
     },
     function (session, results) {
-        session.send('Hello %s!', results.response);
+        session.userData.name = results.response;
+        session.endDialog();
     }
 ]);
