@@ -1,5 +1,5 @@
 {
-  "name": "sargebotbuild",
+  "name": "sargebotbuilder",
   "version": "0.1.0",
   "description": "A sergeant of the day bot based on botbuilder framework",
   "main": "app.js",
