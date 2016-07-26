@@ -1,0 +1,16 @@
+{
+  "name": "sargebotbuild",
+  "version": "0.1.0",
+  "description": "A sergeant of the day bot based on botbuilder framework",
+  "main": "app.js",
+  "dependencies": {
+    "botbuilder": "^3.1.1",
+    "restify": "^4.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": ""
+  },
+  "author": "Robert van der Dussen, Danny de Zeeuw",
+  "license": "ISC"
+}
